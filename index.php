@@ -1,80 +1,54 @@
+<?php
+require_once __DIR__ . '/src/helpers.php';
+
+checkGuest();
+?>
+
 <!DOCTYPE html>
-<html lang="ru">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Список дел</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-
-</head>
-
+<html lang="ru" data-theme="light">
+<?php include_once __DIR__ . '/components/head.php'?>
 <body>
-    <div class="container">
-        <h1>Список дел</h1>
-        <form action="/add.php" method="post">
-            <input type="text" name="task" id="task" placeholder="Нужно сделать.." class="form-control">
-            <input type="date" name="deadline" id="deadline">
-            <input type="checkbox" name="urgent" id="urgent">
-            <label for="urgent">Срочно</label>
-            <button type="submit" name="sendTask" class="btn btn-success">Отправить</button>
-        </form>
 
+<form class="card" action="src/actions/login.php" method="post">
+    <h2>Вход</h2>
 
-        <?php
-        require 'configDB.php';
+    <?php if(hasMessage('error')): ?>
+        <div class="notice error"><?php echo getMessage('error') ?></div>
+    <?php endif; ?>
 
-        echo '<ul class="list-group" id="taskList">';
-        $stmt = $pdo->query('SELECT * FROM tasks ORDER BY id DESC');
-        while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-            $deadline = $row->deadline ? date('d.m.Y', strtotime($row->deadline)) : 'Нет дедлайна';
-            $urgentLabel = $row->urgent ? 'Срочно' : 'Не срочно';
-            $completedClass = $row->completed ? 'completed' : '';
+    <label for="email">
+        Имя
+        <input
+            type="text"
+            id="email"
+            name="email"
+            placeholder="ivan@areaweb.su"
+            value="<?php echo old('email') ?>"
+            <?php echo validationErrorAttr('email'); ?>
+        >
+        <?php if(hasValidationError('email')): ?>
+            <small><?php echo validationErrorMessage('email'); ?></small>
+        <?php endif; ?>
+    </label>
 
-            echo '<li class="list-group-item ' . $completedClass . '" data-task-id="' . htmlspecialchars($row->id) . '">';
-            echo '<span><strong>' . htmlspecialchars($row->task) . '</strong></span>';
-            echo '<div>Дедлайн: ' . $deadline . '</div>';
-            echo '<div>' . $urgentLabel . '</div>';
-            echo '<div>';
-            echo '<button class="btn btn-info btn-sm complete-btn">Выполнено</button> ';
-            echo '<button class="btn btn-danger btn-sm delete-btn">Удалить</button>';
-            echo '</div>';
-            echo '</li>';
-        }
-        echo '</ul>';
-        ?>
-    </div>
+    <label for="password">
+        Пароль
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="******"
+        >
+    </label>
 
-    <div class="col-md-4">
-        <h2>Выполненные задачи</h2>
-        <ul class="list-group" id="completedTasksList">
-            <!-- Здесь будут отображаться выполненные задачи -->
-        </ul>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var taskList = document.getElementById('taskList');
-            var completedTasksPanel = document.getElementById('completedTasksPanel');
-            var completedTasksList = document.getElementById('completedTasksList');
+    <button
+        type="submit"
+        id="submit"
+    >Продолжить</button>
+</form>
 
-            taskList.addEventListener('click', function (event) {
-                if (event.target.classList.contains('complete-btn')) {
-                    var card = event.target.closest('.list-group-item');
-                    card.classList.add('completed');
-                    completedTasksList.appendChild(card);
-                    event.target.disabled = true;
-                }
+<p>У меня еще нет <a href="/register.php">аккаунта</a></p>
 
-                if (event.target.classList.contains('delete-btn')) {
-                    var card = event.target.closest('.list-group-item');
-                    card.remove();
-                }
-            });
-        });
-    </script>
-
+<?php include_once __DIR__ . '/components/scripts.php' ?>
 </body>
-
 </html>

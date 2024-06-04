@@ -1,0 +1,76 @@
+body {     background: linear-gradient(to right, #0033cc 0%, #66ff99 100%);
+
+}
+
+.container {
+  margin-top: 50px;
+  width: 25%!important;
+}
+#completedTasksPanel {
+    background-color: rgba(255, 255, 255, 0.5); /* Прозрачный фон */
+    padding: 20px;
+}
+.col-md-4 {
+    margin-top: 20px; /* Отступ между списком дел и выполненными задачами */
+}
+#completedTasksPanel h2 {
+    margin-top: 0;
+}
+
+h1{
+    /* color: linear-gradient(to bottom, #0033cc 0%, #ff99cc 100%); */
+    background: linear-gradient(to bottom, #f3020e 0%, #4c00ff 100%); /* Градиент для текста */
+    -webkit-background-clip: text; /* Клиппинг фона текста для Webkit-браузеров */
+    -webkit-text-fill-color: transparent; /* Прозрачный цвет текста для Webkit-браузеров */
+    font-size: 3em; /* Размер шрифта */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+.list-group-item {
+    top: 30px; /* Отступ между карточками */
+}
+
+form {
+  background: linear-gradient(to bottom, #0033cc 0%, #66ff99 100%);
+  border: 2px solid #c43409;
+  border-radius: 10px;
+  padding: 20px 10px;
+  margin-bottom: 20px;
+}
+
+#task {
+  width: 60%;
+  float: left;
+  margin-right: 5%;
+}
+
+ul {
+  padding: 0 10px!important;
+}
+
+ul li {
+  list-style: none;
+  padding: 15px;
+  margin-bottom: 50px;
+  background: rgb(129, 48, 48) !important;
+  border: 1px solid silver;
+  border-radius: 10px;
+}
+
+ul li:hover {
+    background: lightgreen !important;
+}
+
+ul li button {
+  border: 0;
+  padding: 5px 15px;
+  color: white;
+  font-size: 13px;
+  background: #db5757;
+  position: relative;
+  left: 130px;
+  border-radius: 5px;
+}
+
+ul li button:hover {
+  background: #a04141;
+}
